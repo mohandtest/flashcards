@@ -1,0 +1,30 @@
+/* Style the div container */
+body {
+    background-color: #cccccc; 
+}
+#loggInn {
+    width: 300px; /* Set a fixed width */
+    margin: auto; /* Center the div horizontally */
+    padding: 30px; /* Add some space around the content */
+    background-color: #ffffff;
+    border: 1px solid #afafaf; /* Add a border */
+  }
+#epost, #passord {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  
+#knapper {
+    display: flex;
+    justify-content: space-evenly;
+  
+}
+  button {
+    padding: 10px;
+    margin: 0;
+}
+button:hover {
+    background-color: #ddd; 
+}
+
