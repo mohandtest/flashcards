@@ -2,7 +2,7 @@
 export let flashcards = [];
 //Knapp for å legge til kort
 let addFlashcardButton = document.querySelector('#addFlashcardButton');
-let flashcardsDiv = document.querySelector(".flashcards")
+let flashcardsDiv = document.querySelector("#flashcardContainer")
 let currentFlashcardIndex = 0
 let next = document.querySelector("#nextButton")
 let prev = document.querySelector("#prevButton")

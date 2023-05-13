@@ -33,7 +33,7 @@
           
         <!-- Div for hovedkontaineren -->
         
-        <div class="flashcardContainer">
+        <div class="mainContainer">
 
             <!-- Form for brukerinput -->
             <form class="flashcardForm">
@@ -58,7 +58,7 @@
             </form> 
 
             <!-- Div for flashkortene -->
-            <div class="flashcards">
+            <div id="flashcardContainer">
                 <div class="flashcard">
                     <div class="front">Legg inn ditt første flashcard i feltet til venstre!</div>
                     <div class="back"></div>
@@ -116,7 +116,7 @@
                 const loggAvKnapp = document.querySelector("#loggAvKnapp")
                 const question = document.querySelector("#question")
                 const flashcardsDiv = document.querySelector(".flashcards")
-                const flashcardContainer = document.querySelector(".flashcardContainer")
+                const mainContainer = document.querySelector(".mainContainer")
                 const heroContainer = document.querySelector(".heroContainer")
                 window.userID = null
 
@@ -215,7 +215,7 @@
                         console.log("Du er logget inn");
                         heroContainer.style.display = "none"
 
-                        flashcardContainer.style.display = "flex"
+                        mainContainer.style.display = "flex"
 
                         loggAvKnapp.textContent = 'Logg Av';
                         loggAvKnapp.removeAttribute('href');
@@ -225,7 +225,7 @@
                     } else {
                         // SKjuler knapper knappen dersom man ikke er logget inn og viser de andre
                         console.log("Logg inn for å bruke");
-                        flashcardContainer.style.display = "none"
+                        mainContainer.style.display = "none"
                         
                         loggAvKnapp.textContent = 'Logg Inn';
                         loggAvKnapp.removeEventListener('click', loggAv);
