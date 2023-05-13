@@ -7,18 +7,35 @@
         <title>Flashcards</title>
         <link rel="stylesheet" href="stiler/style.css">
     </head>
+
     <body>
+
+        <!-- Navigasjonsbaren -->
         <nav id="navbar">
             <ul>
-                <li><a href="#">Logo</a></li>
-                <li><a href="#">Hvordan bruker man nettsiden?</a></li>
-                <li><a href="loggInn.html" id="loggAvKnapp">Logg Inn</a></li>
+                <li><img src="logo.png" alt="logo"></li>
+                <li><a href="auth/loggInn.html" id="loggAvKnapp">Logg Inn</a></li>
             </ul>
         </nav>
-        <h2 style="display: none;" id="loggInnTekst">Logg inn!</h2>
+        
 
+        <div class="heroContainer">
+            <div class="loggetAv">
+                <h2>Oppdag en effektiv måte å lære på - Prøv flashcards nå!</h2>
+                <p>Flashcards er en flott måte å lære på fordi de hjelper deg å bryte ned informasjonen i mindre biter, noe som gjør det enklere å huske. Å bruke flashcards kan også gjøre læringen mer interaktiv og engasjerende, og bidra til å forbedre konsentrasjonen og oppmerksomheten din. Prøv flashcards neste gang du vil lære noe nytt og se hvor mye lettere det blir!</p>
+                <a href="auth/loggInn.html">Logg Inn</a>
+                <a id="nyBruker" href="auth/nyBruker.html">Prøv Nå</a>
+            </div>
+            <div class="image-container">
+              <img src="flashcardBilde.jpeg" alt="Bilde av flashcards">
+            </div>
+          </div>
+          
+        <!-- Div for hovedkontaineren -->
+        
         <div class="flashcardContainer">
 
+            <!-- Form for brukerinput -->
             <form class="flashcardForm">
                 <ul>
                     <li>
@@ -40,12 +57,15 @@
                 </ul>
             </form> 
 
+            <!-- Div for flashkortene -->
             <div class="flashcards">
                 <div class="flashcard">
-                    <div class="front">Legg inn ditt første flashcard i feltet til venstre!.</div>
+                    <div class="front">Legg inn ditt første flashcard i feltet til venstre!</div>
                     <div class="back"></div>
                 </div>
             </div>
+            
+            <!-- Div for knappene -->
             <div id="buttonHolder">
                 <button id="prevButton">Forrige</button>
                 <button id="nextButton">Neste</button>
@@ -55,9 +75,9 @@
         </div>
 
         <script type="module">
-                // Import the functions you need from the SDKs you need
+                // Importer funksjoner fra firebase
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-                // TODO: Add SDKs for Firebase products that you want to use
+
                 import { 
                     getAuth,
                     signOut,
@@ -74,9 +94,8 @@
                     deleteDoc
                 } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
 
-                // https://firebase.google.com/docs/web/setup#available-libraries
             
-                // Your web app's Firebase configuration
+                // Firebase konfigurasjon
                 const firebaseConfig = {
                 apiKey: "AIzaSyB3eY4JJjDMmN7UoiPrgVoNg_Q1VKWIB08",
                 authDomain: "flashcards-skole.firebaseapp.com",
@@ -86,18 +105,19 @@
                 appId: "1:915660792500:web:56568977fea7d52ee4ade1"
                 };
             
-                // Initialize Firebase
+                // Initialiserer Firebase
                 const app = initializeApp(firebaseConfig);
                 const auth = getAuth(app);
                 const db = getFirestore(app);
                 import { flashcards, createFlashcard, nextFlashcard} from './index.js';
-                // Dom elementer
-                var loggInn = document.querySelector("#loggInn")
-                var loggAvKnapp = document.querySelector("#loggAvKnapp")
-                var question = document.querySelector("#question")
-                var flashcardsDiv = document.querySelector(".flashcards")
-                var flashcardContainer = document.querySelector(".flashcardContainer")
-                var loggInnTekst = document.querySelector("#loggInnTekst")
+                
+                // Dom Elementer
+                const loggInn = document.querySelector("#loggInn")
+                const loggAvKnapp = document.querySelector("#loggAvKnapp")
+                const question = document.querySelector("#question")
+                const flashcardsDiv = document.querySelector(".flashcards")
+                const flashcardContainer = document.querySelector(".flashcardContainer")
+                const heroContainer = document.querySelector(".heroContainer")
                 window.userID = null
 
                 /*Nedenfor er funksjoner som trengs. De som starter på "window" er globale funksjoner. 
@@ -193,7 +213,7 @@
                 onAuthStateChanged(auth, user => {
                     if (user) {
                         console.log("Du er logget inn");
-                        loggInnTekst.style.display = "none"
+                        heroContainer.style.display = "none"
 
                         flashcardContainer.style.display = "flex"
 
@@ -202,7 +222,6 @@
                         loggAvKnapp.addEventListener('click', loggAv);
                         window.userID = user.uid
                         getFlashcards()
-                        console.log(flashcards);
                     } else {
                         // SKjuler knapper knappen dersom man ikke er logget inn og viser de andre
                         console.log("Logg inn for å bruke");
@@ -210,13 +229,15 @@
                         
                         loggAvKnapp.textContent = 'Logg Inn';
                         loggAvKnapp.removeEventListener('click', loggAv);
-                        loggAvKnapp.setAttribute('href', 'loggInn.html');
+                        loggAvKnapp.setAttribute('href', 'auth/loggInn.html');
 
-                        loggInnTekst.style.display = "block"
+                        heroContainer.style.display = "flex"
                     }
                 });
 
         </script>
+
+        <!-- gjør index.js til et modul for å eksportere noen funksjoner-->
         <script type="module" src="index.js"></script>
     </body>
 </html>

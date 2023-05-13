@@ -47,38 +47,39 @@ export function createFlashcard(question, answer) {
 }
 
 function removeCurrentFlashcard(){
-    //gets the flashcard from DOM, and removes it
+    // Henter flashcard elememtet fra DOM og fjerner det
     let flashcard = document.querySelector(".flashcard");
     if (flashcard){
         flashcard.remove();
     }
 }
 
-//A function for that shows the current flashcard
+// Funksjon som viser det nåværende flashkortet
 function showCurrentFlashcard(){
-    //Gets the current flashcard from the array
+    // Henter flashkortet fra arrayet
     let currentFlashcard = flashcards[currentFlashcardIndex];
 
-    //Creates a new flashcard
+    // Lager et nytt flashkort med funksjonen
     let newFlashcard = createFlashcard(currentFlashcard.question, currentFlashcard.answer);
 
-    //Adds the new flashcard to the DOM
+    // Legger det til i DOM
     flashcardsDiv.appendChild(newFlashcard.element);
 
-    console.log("Bytta " + currentFlashcardIndex);
 }
 
 export function nextFlashcard(test){
-    // Bruker  parameteret for å bestemme hvordan jeg ønsker å bruke funksjonen
+    // Bruker  parameteret for å bestemme hvordan jeg ønsker å bruke funksjonen. Bruker for å bytte til det nyeste flashkortet når noe legges til
+    // Hvis parameteret er usant, bytter den til neste.
+    // Hvis det er sant, vil det vise det siste flashkortet i arrayet.
     if (! test){
-    // Add one to the current index, if its the highest index, go to index 0
+    // Legger til 1 i indexen, bytter det til 0 hvis det er det høyeste
     currentFlashcardIndex++;
 
     if (currentFlashcardIndex === flashcards.length) {
         currentFlashcardIndex = 0;
     }
 
-    // Remove the current flashcard form the DOM
+    // Fjerner elementet fra DOM
     if (flashcards.length > 0){
         removeCurrentFlashcard();
     }
@@ -86,38 +87,40 @@ export function nextFlashcard(test){
     showCurrentFlashcard();
 
     } 
-    
+    // Hvis test parameteret er sant
     else {
         currentFlashcardIndex = flashcards.length - 1
 
         removeCurrentFlashcard();
-        console.log(currentFlashcardIndex)
-        console.log(flashcards.length);
         showCurrentFlashcard();
     }
     
 }
 
 function prevFlashcard(){
-    // Subtract one to the current index, if its the lowest index, go to length-1
+    // -1 fra indexen, hvis den < 0 bytter den til det siste flashkortet
     currentFlashcardIndex--;
     if (currentFlashcardIndex < 0) {
         currentFlashcardIndex = flashcards.length - 1;
     }
-    // Remove the current flashcard form the DOM
+    // Fjerner elementet fra DOM
     if (flashcards.length > 0){
         removeCurrentFlashcard();
     }
-    // Make a flashcard
+    // Viser det forrige kortet
     showCurrentFlashcard();
 }
 
 // Funksjon for å fjerne flashcardet fra arrayet
 function deleteCurrentFlashcard(index) {
-    flashcards.splice(index, 1)
+    flashcards.splice(index, 1);
+    if (index === currentFlashcardIndex && index === flashcards.length) {
+        // Hvis kortet ble sletta sist var den siste, flyttes indexen til 0.
+        currentFlashcardIndex--;
+      }
 }
 
-// Knapper:
+// Eventlisterners:
 
 addFlashcardButton.addEventListener('click', () => {
     // Finn verdiene i skjemaet
@@ -149,13 +152,17 @@ addFlashcardButton.addEventListener('click', () => {
     }
 });
 
+
 next.addEventListener('click',() =>{
-    nextFlashcard();
+    if (flashcards.length > 0){
+        nextFlashcard();
+    }
 })
 
 prev.addEventListener('click', () => {
-    prevFlashcard();
-})
+    if (flashcards.length > 0){
+        prevFlashcard();
+    }})
 
 del.addEventListener('click', () => {
     // Hvis et flashcard eksisterer
@@ -174,13 +181,20 @@ del.addEventListener('click', () => {
         removeCurrentFlashcard()
 
         // Bytter til neste flashcard
-        nextFlashcard()
         
-        if (flashcards.length == 0){
-            console.log("Nå er bunken tom!");
+        if (flashcards.length !== 0){
+            nextFlashcard()
         }
-    } else {
-        alert("Du må legge til et flashcard først!")
+         else {
+            console.log("Bunken er tom!");
+
+            flashcardsDiv.innerHTML= `
+            <div class="flashcard">
+                <div class="front">Legg inn ditt første flashcard i feltet til venstre!</div>
+            <div class="back"></div>
+            </div>
+        `
+        }
     }
 
 })

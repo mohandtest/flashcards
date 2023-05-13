@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logg inn</title>
+    <link rel="stylesheet" href="../stiler/loggInnStil.css">
+</head>
+<body>
+  
+    <main class="main">
+        <div class="container">
+            <section class="wrapper">
+                <div class="heading">
+
+                    <h1 class="text-large">Opprett Konto</h1>
+                    <p class="text-normal">Har du allerede konto? 
+                        <span>
+                            <a href="loggInn.html" class="tekst-lenker">Logg Inn</a>
+                        </span>
+                    </p>
+                </div>
+                
+                <div class="form">
+
+                    <div class="input-control">
+                        <label for="epost" class="input-label" hidden>Epost Addresse</label>
+                        <input type="email" id="epost" class="input-field" placeholder="Epost Adresse" required autocomplete="off">
+                    </div>
+
+                    <div class="input-control">
+                        <label for="passord" class="input-label" hidden>Passord</label>
+                        <input type="password" id="passord" class="input-field" placeholder="Passord" required autocomplete="off">
+                    </div>
+
+                    <div class="input-control">
+                        <a href="glemtPassord.html" id="glemtPassord" class="tekst-lenker">Glemt Passord</a>
+                        <input type="submit" id="nyKonto" class="knapp" value="Bekreft">
+                    </div>
+
+                </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        import { 
+            getAuth,
+            createUserWithEmailAndPassword,
+            onAuthStateChanged,
+        } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+      
+        // Your web app's Firebase configuration
+            const firebaseConfig = {
+            apiKey: "AIzaSyB3eY4JJjDMmN7UoiPrgVoNg_Q1VKWIB08",
+            authDomain: "flashcards-skole.firebaseapp.com",
+            projectId: "flashcards-skole",
+            storageBucket: "flashcards-skole.appspot.com",
+            messagingSenderId: "915660792500",
+            appId: "1:915660792500:web:56568977fea7d52ee4ade1"
+            };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+
+
+        var nyKonto = document.querySelector("#nyKonto")
+
+        nyKonto.addEventListener("click", (e) => {
+            var epost = document.querySelector("#epost").value
+            var passord = document.querySelector("#passord").value
+            
+            createUserWithEmailAndPassword(auth, epost, passord)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert("Suksess!");
+                    document.querySelector("#epost").value = ''
+                    document.querySelector("#passord").value = ''
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(error.toString());
+                    alert("Klarte ikke å lage bruker: " + error.message);
+                });
+        })
+
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                console.log("Bruker logget inn");
+                window.location="../index.html"
+            } else {
+                console.log("Logg inn for å bruke");
+            }
+            });
+            
+      </script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, sans-serif;
   box-sizing:border-box;
@@ -19,9 +18,7 @@ body {
 }
 
 .flashcard {
-  max-width: 100%;
   height: 100%;
-  border: 1px solid black;
   position: relative;
   transition: transform 0.8s;
   transform-style: preserve-3d;
@@ -30,6 +27,8 @@ body {
   justify-content: space-between;
   border: 2px solid #afafaf;
   margin-top: 10px;
+  font-size: 1vh;
+  
 }
 
 
@@ -78,11 +77,11 @@ body {
 	border-radius:2px;
 	padding:20px;
 	font-family: Georgia, "Times New Roman", Times, serif;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr 0.5fr;
-  grid-column-gap: 50px;
-  grid-row-gap: 35px;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 1fr 0.5fr;
+	grid-column-gap: 50px;
+	grid-row-gap: 35px;
 }
 
 #nextButton{
@@ -136,7 +135,7 @@ body {
 
 #navbar {
   font: 1.15em;
-  border-bottom: 0.5px solid black;
+  border-bottom: 2px solid #afafaf;
 }
 
 #navbar ul {
@@ -164,12 +163,15 @@ body {
   display: flex;
   justify-content: space-between;
 }
-
+#navbar img {
+	max-height: 30px;
+  }
+  
 /* Input boksen*/
 
 .flashcardForm, #buttonHolder{
 	max-width:400px;
-	margin:200px auto;
+	margin: auto;
 	background:#fff;
 	border-radius:2px;
 	padding:20px;
@@ -260,3 +262,70 @@ body {
 .flashcardForm input[type="button"]:active{
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6)
 }
+
+
+
+/* Når man er logget av */
+.heroContainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	margin: 40px auto;
+	max-width: 1000px;
+  }
+  
+.loggetAv {
+	flex-basis: 50%;
+	text-align: start;
+  }
+  
+.loggetAv h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+  }
+  
+.loggetAv > p {
+	font-size: 1rem;
+	margin-bottom: 1.5rem;
+  }
+  
+.loggetAv > a {
+	appearance: button;
+	background-color: #0077cc;
+	color: #fff;
+	border: none;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	text-decoration: none;
+	margin-right: 1rem;
+}
+
+.loggetAv > #nyBruker {
+	background-color: #f4f4f4;
+	color: black;
+	border: 0.2rem solid #afafaf;
+	padding: 0.8rem 1.6rem;
+	font-size: 1rem;
+	border-radius: 4px;
+	cursor: pointer;
+	text-decoration: none;
+}
+  
+.image-container {
+	margin-top: 1rem;
+	flex-basis: 50%;
+	text-align: center;
+  }
+  
+.image-container img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+  }
+  
+
+
+  
